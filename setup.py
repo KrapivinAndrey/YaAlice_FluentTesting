@@ -1,5 +1,6 @@
 import os
 import re
+
 from setuptools import find_namespace_packages, setup
 
 package_version = os.environ.get("VERSION", "0.0.0.dev0")
@@ -14,7 +15,7 @@ author = "a.krapivin"
 email = "krapivin_andrey@mail.ru"
 url = "https://github.com/KrapivinAndrey/YaAlice_FluentTesting"
 
-requires = ["functools", "fluentcheck"]
+requires = ["fluentcheck"]
 requires_test = ["pytest", "pytest-cov"]
 requires_dev = requires_test + ["black", "flake8"]
 

@@ -1,7 +1,7 @@
 import os
 import re
 
-from setuptools import find_namespace_packages, setup
+from setuptools import find_packages, setup
 
 package_version = os.environ.get("VERSION", "0.0.0.dev0")
 
@@ -16,7 +16,7 @@ email = "krapivin_andrey@mail.ru"
 url = "https://github.com/KrapivinAndrey/YaAlice_FluentTesting"
 
 requires = ["fluentcheck"]
-requires_test = ["pytest", "pytest-cov"]
+requires_test = ["pytest", "pytest-cov", "pytest-runner"]
 requires_dev = requires_test + ["black", "flake8"]
 
 setup(
@@ -30,7 +30,7 @@ setup(
     setup_requires=requires_dev,
     tests_require=requires_test,
     url=url,
-    packages=find_namespace_packages(include=["alice_fluent.*"]),
+    packages=find_packages(),
     include_package_data=True,
     author=author,
     author_email=email,

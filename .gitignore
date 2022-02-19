@@ -131,3 +131,7 @@ dmypy.json
 # IDE
 .vscode/
 .idea/
+
+# Reports
+junit.xml
+coverage.xml

@@ -1,4 +1,6 @@
+import json
 from functools import wraps
+from typing import Dict, Union
 
 from fluentcheck import Check
 
@@ -283,15 +285,20 @@ class AliceRequest:
 
 
 class AliceAnswer:
-    def __init__(self, answer: str):
+    def __init__(self, answer: Union[str, Dict]):
+
+        if type(answer) is str:
+            temp_answer = json.loads(answer)
+        else:
+            temp_answer = answer
 
         # Базовая проверка: без этого не будет работать вообще
-        Check(answer).is_not_none().is_dict().has_keys("response")
-        Check(answer.get("response", {})).is_not_none().is_dict().has_keys(
+        Check(temp_answer).is_not_none().is_dict().has_keys("response")
+        Check(temp_answer.get("response", {})).is_not_none().is_dict().has_keys(
             "text", "tts"
         )
 
-        self.answer = answer
+        self.answer = temp_answer
 
     @property
     def response(self):

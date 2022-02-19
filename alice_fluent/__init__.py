@@ -1,1 +1,1 @@
-from AliceMock import AliceRequest, AliceAnswer
+from AliceMock import AliceAnswer, AliceRequest

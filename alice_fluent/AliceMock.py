@@ -40,20 +40,16 @@ class AliceIntentSlot:
         self.value = value
 
     def val(self):
-        result = {}
-        if self.name:
-            result.update(
-                {
-                    self.name: {
-                        "type": self.type,
-                        "tokens": {
-                            "start": self.tokens["start"],
-                            "end": self.tokens["end"],
-                        },
-                        "value": self.value,
-                    }
-                }
-            )
+        result = {
+            self.name: {
+                "type": self.type,
+                "tokens": {
+                    "start": self.tokens["start"],
+                    "end": self.tokens["end"],
+                },
+                "value": self.value,
+            }
+        }
 
         return result
 

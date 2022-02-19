@@ -1,1 +1,1 @@
-from AliceMock import AliceAnswer, AliceRequest
+from AliceMock import AliceAnswer, AliceEntity, AliceIntent, AliceIntentSlot, AliceRequest

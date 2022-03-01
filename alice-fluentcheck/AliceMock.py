@@ -1,17 +1,8 @@
 import json
-from functools import wraps
+
 from typing import Dict, Union
 
 from fluentcheck import Check
-
-
-def chained(fn):
-    @wraps(fn)
-    def new(*args, **kwargs):
-        fn(*args, **kwargs)
-        return args[0]
-
-    return new
 
 
 #########################################################
@@ -19,82 +10,7 @@ def chained(fn):
 #########################################################
 
 
-class AliceIntentSlot:
-    def __init__(self, name: str):
-        self.name = name
-        self.type = ""
-        self.tokens = {"start": 0, "end": 0}
-        self.value = ""
 
-    @chained
-    def type(self, intent_type: str):
-        self.type = intent_type
-
-    @chained
-    def tokens(self, start=0, end=0):
-        self.tokens["start"] = start
-        self.tokens["end"] = end
-
-    @chained
-    def value(self, value):
-        self.value = value
-
-    def val(self):
-        result = {
-            self.name: {
-                "type": self.type,
-                "tokens": {
-                    "start": self.tokens["start"],
-                    "end": self.tokens["end"],
-                },
-                "value": self.value,
-            }
-        }
-
-        return result
-
-
-class AliceIntent:
-    def __init__(self, name=""):
-        self.name = name
-        self.slots = {}
-
-    @chained
-    def add_slot(self, slot: AliceIntentSlot):
-        self.slots.update(slot.val())
-
-    def val(self):
-        return {self.name: self.slots}
-
-    @chained
-    def confirm(self):
-        self.name = "YANDEX.CONFIRM"
-        self.slots.clear()
-
-    @chained
-    def reject(self):
-        self.name = "YANDEX.REJECT"
-        self.slots.clear()
-
-    @chained
-    def discard(self):
-        self.name = "YANDEX.REJECT"
-        self.slots.clear()
-
-    @chained
-    def help(self):
-        self.name = "YANDEX.HELP"
-        self.slots.clear()
-
-    @chained
-    def what_can_you_do(self):
-        self.name = "YANDEX.WHAT_CAN_YOU_DO"
-        self.slots.clear()
-
-    @chained
-    def repeat(self):
-        self.name = "YANDEX.REPEAT"
-        self.slots.clear()
 
 
 class AliceEntity:

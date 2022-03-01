@@ -1,20 +1,21 @@
 from __future__ import annotations
 
+from typing import Dict
+
 from alice_fluentcheck.chain import chained
 from alice_fluentcheck.constants import *
-from typing import Dict
 
 
 class AliceIntentSlot:
     """
-    Описание одной позиции интента - слота: тип, позиция
+        Описание одной позиции интента - слота: тип, позиция
 
-    Документация: https://yandex.ru/dev/dialogs/alice/doc/nlu.html
+        Документация: https://yandex.ru/dev/dialogs/alice/doc/nlu.html
 
-Methods
--------
-type(intent_type: str)
-    Указать тип слота
+    Methods
+    -------
+    type(intent_type: str)
+        Указать тип слота
     """
 
     def __init__(self, name: str):
@@ -33,6 +34,7 @@ type(intent_type: str)
             - YANDEX.STRING
             - YANDEX.DATETIME
             - YANDEX.GEO
+            - YANDEX.FIO
 
         :param str intent_type: задает тип слота
         """
@@ -40,7 +42,8 @@ type(intent_type: str)
             YA_STRING,
             YA_NUMBER,
             YA_GEO,
-            YA_DATETIME
+            YA_DATETIME,
+            YA_FIO
         ], "Неверный тип интента"
         self.slot_type = intent_type
 
@@ -70,7 +73,14 @@ type(intent_type: str)
         """
         Указать тип слота - геоданные
         """
-        self.slot_type = YA_geo
+        self.slot_type = YA_GEO
+
+    @chained
+    def type_fio(self) -> AliceIntentSlot:
+        """
+        Указать тип слота - фио человека
+        """
+        self.slot_type = YA_FIO
 
     @chained
     def tokens(self, start=0, end=0) -> AliceIntentSlot:
@@ -137,7 +147,7 @@ class AliceIntent:
         """
         self.slots.update(slot.val())
 
-# Специфичные интенты
+    # Специфичные интенты
 
     @chained
     def confirm(self) -> AliceIntent:
@@ -187,6 +197,7 @@ class AliceIntent:
         self.name = YA_REPEAT
         self.slots.clear()
 
+    @property
     def val(self) -> Dict:
         """
 

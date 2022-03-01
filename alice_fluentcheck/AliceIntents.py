@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from chain import chained
-from constants import *
+from alice_fluentcheck.chain import chained
+from alice_fluentcheck.constants import *
 from typing import Dict
 
 
@@ -10,13 +10,18 @@ class AliceIntentSlot:
     Описание одной позиции интента - слота: тип, позиция
 
     Документация: https://yandex.ru/dev/dialogs/alice/doc/nlu.html
+
+Methods
+-------
+type(intent_type: str)
+    Указать тип слота
     """
 
     def __init__(self, name: str):
         self.name = name
-        self.type = YA_STRING
-        self.tokens = {"start": 0, "end": 0}
-        self.value = ""
+        self.slot_type = YA_STRING
+        self.slot_tokens = {"start": 0, "end": 0}
+        self.slot_value = ""
 
     @chained
     def type(self, intent_type: str) -> AliceIntentSlot:
@@ -37,7 +42,35 @@ class AliceIntentSlot:
             YA_GEO,
             YA_DATETIME
         ], "Неверный тип интента"
-        self.type = intent_type
+        self.slot_type = intent_type
+
+    @chained
+    def type_number(self) -> AliceIntentSlot:
+        """
+        Указать тип слота - число
+        """
+        self.slot_type = YA_NUMBER
+
+    @chained
+    def type_string(self) -> AliceIntentSlot:
+        """
+        Указать тип слота - строка
+        """
+        self.slot_type = YA_STRING
+
+    @chained
+    def type_datetime(self) -> AliceIntentSlot:
+        """
+        Указать тип слота - дата/время
+        """
+        self.slot_type = YA_DATETIME
+
+    @chained
+    def type_geo(self) -> AliceIntentSlot:
+        """
+        Указать тип слота - геоданные
+        """
+        self.slot_type = YA_geo
 
     @chained
     def tokens(self, start=0, end=0) -> AliceIntentSlot:
@@ -51,8 +84,8 @@ class AliceIntentSlot:
         assert type(end) is int, "Параметр ОКОНЧАНИЕ должен быть числом"
 
         assert 0 <= start <= end, "Нарушен порядок следования"
-        self.tokens["start"] = start
-        self.tokens["end"] = end
+        self.slot_tokens["start"] = start
+        self.slot_tokens["end"] = end
 
     @chained
     def value(self, value) -> AliceIntentSlot:
@@ -61,8 +94,9 @@ class AliceIntentSlot:
 
         :param value: значение слота
         """
-        self.value = value
+        self.slot_value = value
 
+    @property
     def val(self) -> Dict:
         """
         Собрать значение слота
@@ -71,12 +105,12 @@ class AliceIntentSlot:
         """
         result = {
             self.name: {
-                "type": self.type,
+                "type": self.slot_type,
                 "tokens": {
-                    "start": self.tokens["start"],
-                    "end": self.tokens["end"],
+                    "start": self.slot_tokens["start"],
+                    "end": self.slot_tokens["end"],
                 },
-                "value": self.value,
+                "value": self.slot_value,
             }
         }
 
@@ -102,14 +136,6 @@ class AliceIntent:
         :param AliceIntentSlot slot: один слот для интента
         """
         self.slots.update(slot.val())
-
-    def val(self) -> Dict:
-        """
-
-        Собрать значение интента
-        :return: значение одно интента: тип и слоты
-        """
-        return {self.name: self.slots}
 
 # Специфичные интенты
 
@@ -160,3 +186,11 @@ class AliceIntent:
         """
         self.name = YA_REPEAT
         self.slots.clear()
+
+    def val(self) -> Dict:
+        """
+
+        Собрать значение интента
+        :return: значение одно интента: тип и слоты
+        """
+        return {self.name: self.slots}

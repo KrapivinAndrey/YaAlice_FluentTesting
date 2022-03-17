@@ -10,9 +10,6 @@ from fluentcheck import Check
 #########################################################
 
 
-
-
-
 class AliceEntity:
     def __init__(self, entity_type=""):
         self.type = entity_type

@@ -145,7 +145,7 @@ class AliceIntent:
         Добавить слот к интенту: описание позиции где был найден интент, его значение
         :param AliceIntentSlot slot: один слот для интента
         """
-        self.slots.update(slot.val())
+        self.slots.update(slot.val)
 
     # Специфичные интенты
 

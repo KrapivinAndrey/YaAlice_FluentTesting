@@ -1,55 +1,127 @@
 from alice_fluentcheck import AliceIntentSlot, AliceIntent
 
 
-def test_create_one_slot():
-    test = AliceIntentSlot("test").type("YANDEX.NUMBER").tokens(1, 2).value(5).val
-    control = {
-        "test": {"type": "YANDEX.NUMBER", "tokens": {"start": 1, "end": 2}, "value": 5}
-    }
+class Test_AliceIntentSlot:
+    def test_create_one_slot(self):
+        test = AliceIntentSlot("test").type("YANDEX.NUMBER").tokens(1, 2).value(5).val
+        control = {
+            "test": {
+                "type": "YANDEX.NUMBER",
+                "tokens": {"start": 1, "end": 2},
+                "value": 5,
+            }
+        }
 
-    assert test == control
+        assert test == control
+
+    def test_number_slot(self):
+        test = AliceIntentSlot("test").type_number().tokens(1, 2).value(5).val
+        control = {
+            "test": {
+                "type": "YANDEX.NUMBER",
+                "tokens": {"start": 1, "end": 2},
+                "value": 5,
+            }
+        }
+
+        assert test == control
+
+    def test_string_slot(self):
+        test = AliceIntentSlot("test").type_string().tokens(1, 2).value("5").val
+        control = {
+            "test": {
+                "type": "YANDEX.STRING",
+                "tokens": {"start": 1, "end": 2},
+                "value": "5",
+            }
+        }
+
+        assert test == control
+
+    def test_datetime_slot(self):
+        test = AliceIntentSlot("test").type_datetime().tokens(1, 2).value(5).val
+        control = {
+            "test": {
+                "type": "YANDEX.DATETIME",
+                "tokens": {"start": 1, "end": 2},
+                "value": 5,
+            }
+        }
+
+        assert test == control
+
+    def test_geo_slot(self):
+        test = AliceIntentSlot("test").type_geo().tokens(1, 2).value(5).val
+        control = {
+            "test": {"type": "YANDEX.GEO", "tokens": {"start": 1, "end": 2}, "value": 5}
+        }
+
+        assert test == control
+
+    def test_fio_slot(self):
+        test = AliceIntentSlot("test").type_fio().tokens(1, 2).value(5).val
+        control = {
+            "test": {"type": "YANDEX.FIO", "tokens": {"start": 1, "end": 2}, "value": 5}
+        }
+
+        assert test == control
 
 
-def test_number_slot():
-    test = AliceIntentSlot("test").type_number().tokens(1, 2).value(5).val
-    control = {
-        "test": {"type": "YANDEX.NUMBER", "tokens": {"start": 1, "end": 2}, "value": 5}
-    }
+class Test_AliceIntent:
+    def test_name_intent(self):
+        slot = AliceIntentSlot("test").type("YANDEX.NUMBER").tokens(1, 2).value(5)
+        test = AliceIntent("Num").add_slot(slot).val
 
-    assert test == control
+        control = {
+            "Num": {
+                "test": {
+                    "type": "YANDEX.NUMBER",
+                    "tokens": {"start": 1, "end": 2},
+                    "value": 5,
+                }
+            }
+        }
 
+        assert test == control
 
-def test_string_slot():
-    test = AliceIntentSlot("test").type_string().tokens(1, 2).value("5").val
-    control = {
-        "test": {"type": "YANDEX.STRING", "tokens": {"start": 1, "end": 2}, "value": "5"}
-    }
+    def test_confirm(self):
+        test = AliceIntent().confirm().val
 
-    assert test == control
+        control = {"YANDEX.CONFIRM": {}}
 
+        assert test == control
 
-def test_datetime_slot():
-    test = AliceIntentSlot("test").type_datetime().tokens(1, 2).value(5).val
-    control = {
-        "test": {"type": "YANDEX.DATETIME", "tokens": {"start": 1, "end": 2}, "value": 5}
-    }
+    def test_reject(self):
+        test = AliceIntent().reject().val
 
-    assert test == control
+        control = {"YANDEX.REJECT": {}}
 
+        assert test == control
 
-def test_geo_slot():
-    test = AliceIntentSlot("test").type_geo().tokens(1, 2).value(5).val
-    control = {
-        "test": {"type": "YANDEX.GEO", "tokens": {"start": 1, "end": 2}, "value": 5}
-    }
+    def test_discard(self):
+        test = AliceIntent().discard().val
 
-    assert test == control
+        control = {"YANDEX.REJECT": {}}
 
+        assert test == control
 
-def test_fio_slot():
-    test = AliceIntentSlot("test").type_fio().tokens(1, 2).value(5).val
-    control = {
-        "test": {"type": "YANDEX.FIO", "tokens": {"start": 1, "end": 2}, "value": 5}
-    }
+    def test_help(self):
+        test = AliceIntent().help().val
 
-    assert test == control
+        control = {"YANDEX.HELP": {}}
+
+        assert test == control
+
+    def test_what_can(self):
+        test = AliceIntent().what_can_you_do().val
+
+        control = {"YANDEX.WHAT_CAN_YOU_DO": {}}
+
+        assert test == control
+
+    def test_repeat(self):
+        test = AliceIntent().repeat().val
+
+        control = {"YANDEX.REPEAT": {}}
+
+        assert test == control

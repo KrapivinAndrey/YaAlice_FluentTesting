@@ -200,7 +200,6 @@ class AliceIntent:
     @property
     def val(self) -> Dict:
         """
-
         Собрать значение интента
         :return: значение одно интента: тип и слоты
         """

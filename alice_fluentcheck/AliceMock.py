@@ -1,78 +1,13 @@
 import json
-
 from typing import Dict, Union
 
 from fluentcheck import Check
 
+from alice_fluentcheck.chain import chained
 
 #########################################################
 # ПОДГОТОВКА ЗАПРОСОВ
 #########################################################
-
-
-class AliceEntity:
-    def __init__(self, entity_type=""):
-        self.type = entity_type
-        self.tokens = {"start": 0, "end": 0}
-        self.value = ""
-
-    @chained
-    def tokens(self, start=0, end=0):
-        self.tokens["start"] = start
-        self.tokens["end"] = end
-
-    @chained
-    def value(self, value):
-        self.value = value
-
-    @chained
-    def fio(self, first_name="", patronymic_name="", last_name=""):
-        assert first_name or patronymic_name or last_name
-
-        self.type = "YANDEX.FIO"
-        self.value = {
-            "first_name": first_name,
-            "patronymic_name": patronymic_name,
-            "last_name": last_name,
-        }
-
-    @chained
-    def number(self, num: int):
-        self.type = "YANDEX.NUMBER"
-        self.value = num
-
-    @chained
-    def datetime(
-        self,
-        year=None,
-        year_is_relative=None,
-        month=None,
-        month_is_relative=None,
-        day=None,
-        day_is_relative=None,
-        hour=None,
-        hour_is_relative=None,
-        minute=None,
-        minute_is_relative=None,
-    ):
-        self.type = "YANDEX.DATETIME"
-        value = {
-            "year": year,
-            "year_is_relative": year_is_relative,
-            "month": month,
-            "month_is_relative": month_is_relative,
-            "day": day,
-            "day_is_relative": day_is_relative,
-            "hour": hour,
-            "hour_is_relative": hour_is_relative,
-            "minute": minute,
-            "minute_is_relative": minute_is_relative,
-        }
-        value = {k: v for k, v in value.items() if v is not None}
-        self.value = value
-
-    def val(self):
-        return {"type": self.type, "value": self.value}
 
 
 class AliceRequest:

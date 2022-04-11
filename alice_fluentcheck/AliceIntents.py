@@ -43,7 +43,7 @@ class AliceIntentSlot:
             YA_NUMBER,
             YA_GEO,
             YA_DATETIME,
-            YA_FIO
+            YA_FIO,
         ], "Неверный тип интента"
         self.slot_type = intent_type
 

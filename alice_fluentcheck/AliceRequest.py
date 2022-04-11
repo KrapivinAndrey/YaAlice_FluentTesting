@@ -53,11 +53,11 @@ class AliceRequest:
 
     @chained
     def add_intent(self, intent: AliceIntent):
-        self._intents.update(intent.val())
+        self._intents.update(intent.val)
 
     @chained
     def add_entity(self, entity: AliceEntity):
-        self._entities.append(entity.val())
+        self._entities.append(entity.val)
 
     @chained
     def add_to_state_session(self, name: str, value):

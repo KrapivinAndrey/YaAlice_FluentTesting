@@ -55,7 +55,7 @@ jobs:
       - name: Lint with mypy
         if: always()
         run: |
-          mypy --config-file mypy.ini --install-types --non-interactive alice_fluent
+          mypy --config-file mypy.ini --install-types --non-interactive alice_fluentcheck
       - name: Lint with black
         if: always()
         run: |

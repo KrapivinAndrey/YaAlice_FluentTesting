@@ -1,7 +1,7 @@
 from alice_fluentcheck import AliceIntentSlot, AliceIntent
 
 
-class Test_AliceIntentSlot:
+class TestAliceIntentSlot:
     def test_create_one_slot(self):
         test = AliceIntentSlot("test").type("YANDEX.NUMBER").tokens(1, 2).value(5).val
         control = {
@@ -67,7 +67,7 @@ class Test_AliceIntentSlot:
         assert test == control
 
 
-class Test_AliceIntent:
+class TestAliceIntent:
     def test_name_intent(self):
         slot = AliceIntentSlot("test").type("YANDEX.NUMBER").tokens(1, 2).value(5)
         test = AliceIntent("Num").add_slot(slot).val

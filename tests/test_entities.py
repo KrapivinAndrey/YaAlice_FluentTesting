@@ -1,7 +1,7 @@
 from alice_fluentcheck import AliceEntity
 
 
-class Test_AliceEntity:
+class TestAliceEntity:
     def test_create_one_entity(self):
         test = AliceEntity("test").tokens(1, 2).value(5).val
         control = {

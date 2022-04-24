@@ -39,8 +39,8 @@ jobs:
         id: create_release
         uses: ncipollo/release-action@v1
         with:
-          tag_name: v${{ steps.get_version.outputs.VERSION }}
-          release_name: Version v${{ steps.get_version.outputs.VERSION }}
+          tag: v${{ steps.get_version.outputs.VERSION }}
+          name: Version v${{ steps.get_version.outputs.VERSION }}
           body: ${{ steps.changelog_reader.outputs.changes }}
           draft: true
           prerelease: endWith(steps.get_version.outputs.VERSION, 'rc')

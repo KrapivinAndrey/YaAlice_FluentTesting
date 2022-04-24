@@ -1,5 +1,5 @@
-from alice_fluentcheck import AliceEntity, AliceIntent
-from alice_fluentcheck.chain import chained
+from alicefluentcheck import AliceEntity, AliceIntent
+from alicefluentcheck.chain import chained
 
 #########################################################
 # ПОДГОТОВКА ЗАПРОСОВ

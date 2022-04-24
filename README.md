@@ -1,2 +1,2 @@
-# YaAlice_FluentTesting
+# alicefluentcheck
 Подготовка примеров запросов от Яндекс.Алисы в стиле текучих выражений

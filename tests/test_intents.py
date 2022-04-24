@@ -1,4 +1,4 @@
-from alice_fluentcheck import AliceIntentSlot, AliceIntent
+from alicefluentcheck import AliceIntentSlot, AliceIntent
 
 
 class TestAliceIntentSlot:

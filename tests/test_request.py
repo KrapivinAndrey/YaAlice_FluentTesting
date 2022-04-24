@@ -1,4 +1,4 @@
-from alice_fluentcheck import AliceEntity, AliceIntent, AliceIntentSlot, AliceRequest
+from alicefluentcheck import AliceEntity, AliceIntent, AliceIntentSlot, AliceRequest
 
 
 class TestAliceRequest:

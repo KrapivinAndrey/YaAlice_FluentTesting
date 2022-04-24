@@ -1,4 +1,4 @@
-from alice_fluentcheck import AliceEntity
+from alicefluentcheck import AliceEntity
 
 
 class TestAliceEntity:

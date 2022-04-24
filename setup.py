@@ -10,7 +10,7 @@ if not re.match(r"\d+\.\d+\.\d(\..*)?", package_version):
 with open("README.md", "r", encoding="utf-8") as readme:
     long_description = readme.read()
 
-title = "alice-fluentcheck"
+title = "alicefluentcheck"
 author = "a.krapivin"
 email = "krapivin_andrey@mail.ru"
 url = "https://github.com/KrapivinAndrey/YaAlice_FluentTesting"
@@ -30,7 +30,7 @@ setup(
     setup_requires=requires_dev,
     tests_require=requires_test,
     url=url,
-    packages=find_namespace_packages(include=["alice_fluentcheck.*"]),
+    packages=find_namespace_packages(include=["alicefluentcheck.*"]),
     include_package_data=True,
     author=author,
     author_email=email,

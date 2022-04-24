@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import Dict
 
-from alice_fluentcheck.chain import chained
-from alice_fluentcheck.constants import *
+from alicefluentcheck.chain import chained
+from alicefluentcheck.constants import *
 
 
 class AliceIntentSlot:

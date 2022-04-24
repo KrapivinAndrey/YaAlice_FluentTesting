@@ -30,7 +30,7 @@ setup(
     setup_requires=requires_dev,
     tests_require=requires_test,
     url=url,
-    packages=find_namespace_packages(include=["alicefluentcheck.*"]),
+    packages=["alicefluentcheck"],
     include_package_data=True,
     author=author,
     author_email=email,

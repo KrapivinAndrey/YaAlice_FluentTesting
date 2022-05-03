@@ -27,3 +27,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Исправление
 - Корректная установка пакета
+
+## [2.0.3]
+
+### Исправление
+- Импорт пакета AliceAnswer
+- Признак конца сессии

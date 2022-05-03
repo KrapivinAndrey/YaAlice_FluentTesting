@@ -42,6 +42,10 @@ class AliceAnswer:
     def next_scene(self):
         return self.session_state.get("scene")
 
+    @property
+    def is_end_of_session(self):
+        return self.response.get("end_session", False)
+
     def get_state_session(self, state: str):
         return self.session_state.get(state, None)
 

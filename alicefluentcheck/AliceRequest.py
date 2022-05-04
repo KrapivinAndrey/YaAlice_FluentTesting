@@ -24,6 +24,7 @@ class AliceRequest:
         self._state_user = {}
         self._state_application = {}
         self._interfaces = {}
+        self._access_token = None
         if has_screen:
             self._interfaces["screen"] = {}
         if has_payments:
@@ -46,6 +47,10 @@ class AliceRequest:
     def original_utterance(self, original_utterance=""):
         self._original_utterance = original_utterance
         self.nlu_token(original_utterance.lower().split(" "))
+
+    @chained
+    def access_token(self, access_token="777"):
+        self._access_token = access_token
 
     @chained
     def nlu_token(self, tokens: list):
@@ -85,7 +90,7 @@ class AliceRequest:
             }
 
         def session(new=False):
-            return {
+            temp = {
                 "message_id": 3,
                 "session_id": "d825cbef-e7d6-4af9-9810-3ff3f358ac16",
                 "skill_id": "3308dc06-b901-4f7e-8882-beb1b84c0753",
@@ -94,6 +99,10 @@ class AliceRequest:
                 "user_id": "000",
                 "new": new,
             }
+            if self._access_token is not None:
+                temp["user"]["access_token"] = self._access_token
+
+            return temp
 
         req = {
             "meta": meta(),

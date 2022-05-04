@@ -25,6 +25,7 @@ class AliceRequest:
         self._state_application = {}
         self._interfaces = {}
         self._access_token = None
+        self._account_linking_complete_event = False
         if has_screen:
             self._interfaces["screen"] = {}
         if has_payments:
@@ -80,6 +81,10 @@ class AliceRequest:
     def from_scene(self, scene: str):
         self.add_to_state_session("scene", scene)
 
+    @chained
+    def account_linking_complete(self):
+        self._account_linking_complete_event = True
+
     def build(self):
         def meta():
             return {
@@ -104,25 +109,39 @@ class AliceRequest:
 
             return temp
 
-        req = {
-            "meta": meta(),
-            "session": session(self._new_session),
-            "request": {
-                "command": self._command,
-                "original_utterance": self._original_utterance,
-                "nlu": {
-                    "tokens": self._nlu_tokens,
-                    "entities": self._entities,
-                    "intents": self._intents,
+        if self._account_linking_complete_event:
+            req = {
+                "meta": meta(),
+                "session": session(self._new_session),
+                "account_linking_complete_event": {},
+                "version": "1.0",
+                "state": {
+                    "session": self._state_sessions,
+                    "user": self._state_user,
+                    "applications": self._state_application,
                 },
-                "markup": {"dangerous_context": False},
-                "type": "SimpleUtterance",
-            },
-            "version": "1.0",
-            "state": {
-                "session": self._state_sessions,
-                "user": self._state_user,
-                "applications": self._state_application,
-            },
-        }
+            }
+
+        else:
+            req = {
+                "meta": meta(),
+                "session": session(self._new_session),
+                "request": {
+                    "command": self._command,
+                    "original_utterance": self._original_utterance,
+                    "nlu": {
+                        "tokens": self._nlu_tokens,
+                        "entities": self._entities,
+                        "intents": self._intents,
+                    },
+                    "markup": {"dangerous_context": False},
+                    "type": "SimpleUtterance",
+                },
+                "version": "1.0",
+                "state": {
+                    "session": self._state_sessions,
+                    "user": self._state_user,
+                    "applications": self._state_application,
+                },
+            }
         return req

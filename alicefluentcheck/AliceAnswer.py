@@ -51,3 +51,9 @@ class AliceAnswer:
 
     def get_state_user(self, state: str):
         return self.user_state.get(state, None)
+
+    def has_button(self, name: str) -> bool:
+        for button in self.response.get("buttons", []):
+            if button.name == name:
+                return True
+        return False

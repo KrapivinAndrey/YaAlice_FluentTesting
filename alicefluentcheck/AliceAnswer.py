@@ -54,6 +54,6 @@ class AliceAnswer:
 
     def has_button(self, name: str) -> bool:
         for button in self.response.get("buttons", []):
-            if button.name == name:
+            if button["title"] == name:
                 return True
         return False
